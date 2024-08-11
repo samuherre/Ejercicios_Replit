@@ -1,0 +1,11 @@
+public class Main {
+    public static void main(String[] args) {
+        String str = "Hola Mundo!";
+        String subStr = str.substring(5, 11);
+        System.out.println("Subcadena: " + subStr);
+ 
+        String str1 = "Paola es la mejor profesora";
+        String subStr1 = str1.substring(0, 5) + (str1.substring(8, 23));
+        System.out.println("Subcadena: " + subStr1);
+    }
+}
