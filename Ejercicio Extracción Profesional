@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese el texto con código HTML:");
+        String textoHTML = scanner.nextLine();
+
+        String nombre = encontrarNombre(textoHTML);
+        String apellido = encontrarApellido(textoHTML);
+
+        if (nombre != null && apellido != null) {
+            System.out.println(nombre + apellido);
+        } else {
+            System.out.println("No se encontró la información requerida.");
+        }
+    }
+
+    public static String encontrarNombre(String texto) {
+        String inicioNombre = "<div class='name'>";
+        String finNombre = "</div>";
+        int indiceInicioNombre = texto.indexOf(inicioNombre);
+        if (indiceInicioNombre == -1) {
+            return null; 
+        }
+        indiceInicioNombre += inicioNombre.length(); 
+        int indiceFinNombre = texto.indexOf(finNombre, indiceInicioNombre);
+        if (indiceFinNombre == -1) {
+            return null; 
+        }
+        return texto.substring(indiceInicioNombre, indiceFinNombre);
+    }
+
+    public static String encontrarApellido(String texto) {
+        String inicioApellido = "<div class='lastname'>";
+        String finApellido = "</div>";
+        int indiceInicioApellido = texto.indexOf(inicioApellido);
+        if (indiceInicioApellido == -1) {
+            return null; 
+        }
+        indiceInicioApellido += inicioApellido.length(); 
+        int indiceFinApellido = texto.indexOf(finApellido, indiceInicioApellido);
+        if (indiceFinApellido == -1) {
+            return null; 
+        }
+        return texto.substring(indiceInicioApellido, indiceFinApellido);
+    }
+}
