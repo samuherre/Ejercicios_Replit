@@ -1,0 +1,10 @@
+import java.util.Scanner;
+class Main {
+public static void main(String[] args) {
+// Definir las variables:
+  Scanner teclado = new Scanner(System.in);
+  float tipo_de_producto, valor_producto, iva_a_pagar;
+  float Valor_IVA;
+  Valor_IVA = 0.19;
+  }
+}
