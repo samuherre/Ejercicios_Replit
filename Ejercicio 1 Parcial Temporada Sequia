@@ -1,0 +1,43 @@
+import java.util.Scanner;
+public class Main {
+  public static int promedioNivelesAgua(int[] arr){
+    int suma = 0;
+    for(int i = 0; i < arr.length; i++){
+      suma += arr[i];
+    }
+    return suma / arr.length;
+  }
+  public static int evaluarCapacidadAgua(int[] arr, int capacidad){
+      capacidad = 100;
+      int result = 0;
+      for(int i = 0; i < arr.length; i++){
+          int porcentaje = arr[i] * 100 / capacidad;
+          if (100 >= arr[i] && arr[i] > 70){
+              System.out.println("Niveles de agua óptimos. No hay preocupaciones por sequía.");
+          } else if (70 >= arr[i] && arr[i] >= 50) {
+              System.out.println("Niveles de agua moderados. Se recomienda monitorear");
+          } else if (50 >= arr[i]) {
+              System.out.println("Alerta de sequía. Se deben tomar medidas de conservación del agua");
+          }
+      }
+      return result;
+  }
+public static void main(String[] args) {
+  Scanner kb = new Scanner(System.in);
+  int x, n;
+  System.out.println("Ingresar el número de envalses: ");
+  x = kb.nextInt();
+  int[] arr = new int[x];
+  System.out.println("Ingrese " + x + " cantidades una para cada envalse: ");
+  for (int i = 0; i < x; i++){
+      n = kb.nextInt();
+      arr[i] = n;
+  }
+  System.out.println("La cantidad de agua en cada envalse es: ");
+  for (int i = 0; i < arr.length; i++){
+      System.out.println(arr[i]);
+  }
+    System.out.println("La capacidad actual de los envases es: " + evaluarCapacidadAgua(arr, 100));
+    System.out.println("El promedio de los niveles de agua es: " + promedioNivelesAgua(arr));
+  }
+}
