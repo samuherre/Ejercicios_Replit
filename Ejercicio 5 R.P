@@ -1,0 +1,24 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+public class Main {
+  public static void buscarImpares(int[]arr){
+    ArrayList<Integer> impares = new ArrayList<Integer>();
+    for(int i = 0; i < arr.length; i++){
+      if(arr[i] % 2 != 0){
+        impares.add(arr[i]);
+      }
+    }
+    System.out.println("Impares: " + impares);
+  }
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Ingrese el tamaño del arreglo: ");
+    int n = sc.nextInt();
+    int[] arr = new int[n];
+    for(int i = 0; i < n; i++){
+      System.out.println("Ingrese el valor de la posicion " + i + ": ");
+      arr[i] = sc.nextInt();
+    }
+    buscarImpares(arr);
+  }
+}
