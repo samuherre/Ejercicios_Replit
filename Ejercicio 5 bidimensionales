@@ -1,0 +1,115 @@
+import java.util.Scanner;
+
+public class Main {
+    private static final int ID = 0;
+    private static final int EDAD = 1;
+    private static final int ANO_NACIMIENTO = 2;
+    private static final int NRO_MATERIAS = 3;
+    private static int[][] estudiantes;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el número de estudiantes:");
+        int n = scanner.nextInt();
+        estudiantes = new int[4][n];
+        int opcion;
+        do {
+            System.out.println("0. Salir\n1. Leer datos de un estudiante\n2. Imprimir datos de un estudiante\n3. Imprimir número de estudiantes en un rango de edad\n4. Imprimir todos los estudiantes\n5. Imprimir estudiantes de un año determinado\n6. Imprimir el número promedio de materias");
+            opcion = scanner.nextInt();
+            switch (opcion) {
+                case 1:
+                    leerDatos(scanner);
+                    break;
+                case 2:
+                    imprimirDatos(scanner);
+                    break;
+                case 3:
+                    imprimirRangoEdad(scanner);
+                    break;
+                case 4:
+                    imprimirTodos();
+                    break;
+                case 5:
+                    imprimirPorAno(scanner);
+                    break;
+                case 6:
+                    imprimirPromedioMaterias();
+                    break;
+            }
+        } while (opcion != 0);
+    }
+
+    private static void leerDatos(Scanner scanner) {
+        System.out.println("Ingrese la posición del estudiante:");
+        int i = scanner.nextInt();
+        System.out.println("Ingrese el ID del estudiante:");
+        estudiantes[ID][i] = scanner.nextInt();
+        System.out.println("Ingrese la edad del estudiante:");
+        estudiantes[EDAD][i] = scanner.nextInt();
+        System.out.println("Ingrese el año de nacimiento del estudiante:");
+        estudiantes[ANO_NACIMIENTO][i] = scanner.nextInt();
+        System.out.println("Ingrese el número de materias del estudiante:");
+        estudiantes[NRO_MATERIAS][i] = scanner.nextInt();
+    }
+
+    private static void imprimirDatos(Scanner scanner) {
+        System.out.println("Ingrese el ID del estudiante:");
+        int id = scanner.nextInt();
+        for (int i = 0; i < estudiantes[ID].length; i++) {
+            if (estudiantes[ID][i] == id) {
+                System.out.println("ID: " + estudiantes[ID][i]);
+                System.out.println("Edad: " + estudiantes[EDAD][i]);
+                System.out.println("Año de nacimiento: " + estudiantes[ANO_NACIMIENTO][i]);
+                System.out.println("Número de materias: " + estudiantes[NRO_MATERIAS][i]);
+                break;
+            }
+        }
+    }
+
+    private static void imprimirRangoEdad(Scanner scanner) {
+        System.out.println("Ingrese la edad mínima:");
+        int edadMin = scanner.nextInt();
+        System.out.println("Ingrese la edad máxima:");
+        int edadMax = scanner.nextInt();
+        int contador = 0;
+        for (int edad : estudiantes[EDAD]) {
+            if (edad >= edadMin && edad <= edadMax) {
+                contador++;
+            }
+        }
+        System.out.println("Número de estudiantes entre " + edadMin + " y " + edadMax + ": " + contador);
+    }
+
+    private static void imprimirTodos() {
+        for (int i = 0; i < estudiantes[ID].length; i++) {
+            System.out.println("Estudiante " + (i + 1) + ":");
+            System.out.println("ID: " + estudiantes[ID][i]);
+            System.out.println("Edad: " + estudiantes[EDAD][i]);
+            System.out.println("Año de nacimiento: " + estudiantes[ANO_NACIMIENTO][i]);
+            System.out.println("Número de materias: " + estudiantes[NRO_MATERIAS][i]);
+        }
+    }
+
+    private static void imprimirPorAno(Scanner scanner) {
+        System.out.println("Ingrese el año:");
+        int ano = scanner.nextInt();
+        for (int i = 0; i < estudiantes[ANO_NACIMIENTO].length; i++) {
+            if (estudiantes[ANO_NACIMIENTO][i] == ano) {
+                System.out.println("Estudiante " + (i + 1) + ":");
+                System.out.println("ID: " + estudiantes[ID][i]);
+                System.out.println("Edad: " + estudiantes[EDAD][i]);
+                System.out.println("Año de nacimiento: " + estudiantes[ANO_NACIMIENTO][i]);
+                System.out.println("Número de materias: " + estudiantes[NRO_MATERIAS][i]);
+            }
+        }
+    }
+
+    private static void imprimirPromedioMaterias() {
+        int total = 0;
+        for (int nroMaterias : estudiantes[NRO_MATERIAS]) {
+            total += nroMaterias;
+        }
+        double promedio = (double) total / estudiantes[NRO_MATERIAS].length;
+        System.out.println("Promedio de materias: " + promedio);
+    }
+}
