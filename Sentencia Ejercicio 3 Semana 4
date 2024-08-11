@@ -1,0 +1,23 @@
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+  Scanner teclado = new Scanner(System.in);
+  String nombre_juzgado;
+  int declaraciones_encontra;
+    declaraciones_encontra = 0;
+    while (declaraciones_encontra >= 0) {
+      System.out.println("Ingrese el nombre de la persona juzgada");
+      nombre_juzgado = teclado.next();
+      System.out.println("Ingrese el número de declaraciones en contra de " + nombre_juzgado);
+      declaraciones_encontra = teclado.nextInt();
+      if (declaraciones_encontra > 10) {
+        System.out.println(nombre_juzgado + " es culpable");
+        break;
+      } else if (declaraciones_encontra <= 10 && declaraciones_encontra >= 0) {
+          System.out.println(nombre_juzgado + " es inocente");
+          } else {
+              System.out.println("Fin del programa. Porfavor ingrese un número positivo de declaraciones");
+            }
+    }
+  }
+}
