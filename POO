@@ -1,0 +1,31 @@
+class user {
+  String nombre;
+  int vida;
+  int ataque;
+  int velocidad;
+  int defensa;
+
+  public user(String nombre, int vida, int ataque, int velocidad, int defensa) {
+    this.nombre = nombre;
+    this.vida = vida;
+    this.ataque = ataque;
+    this.velocidad = velocidad;
+    this.defensa = defensa;
+  }
+
+  public void morir() {
+    System.out.println(this.nombre + " murió");
+    this.vida = 0;
+  }
+
+  public void atacar(user enemigo) {
+    System.out.println(this.nombre + " atacó a " + enemigo.nombre);
+    enemigo.vida = enemigo.vida - this.ataque;
+    System.out.println("La vida de " + enemigo.nombre + " es " + enemigo.vida);
+  }
+
+  public void ver_atributos() {
+    System.out.println("El personaje tiene los siguientes atributos: " + this.nombre + " " + this.vida + " "
+        + this.ataque + " " + this.velocidad + " " + this.defensa);
+  }
+}
