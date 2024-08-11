@@ -1,0 +1,15 @@
+public class Main {
+  public static void main(String[] args) {
+    String str = "Hello";
+    int length = str.length();
+    System.out.println("Length of the string: " + length);
+
+    String emptyStr = "";
+    int length2 = emptyStr.length();
+    System.out.println("Length of the empty string: " + length2);
+
+    String strWithSpaces = "Hello, World!";
+    int length3 = strWithSpaces.length();
+    System.out.println("Length of the string with spaces: " + length3);
+  }
+}
