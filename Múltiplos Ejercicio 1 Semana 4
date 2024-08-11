@@ -1,0 +1,21 @@
+import java.util.Scanner;
+    public class Main {
+    public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+  
+  // Definir variables 
+    int multiplo_inicial, num;
+
+  // Ingreso de datos usuario
+    System.out.println ("Ingrese un número al cual le quiera hallar sus múltiplos: ");
+    multiplo_inicial = teclado.nextInt();
+    System.out.println ("Ingrese el número de múltiplos que quiere hallar del número inicial: ");
+    num = teclado.nextInt();
+
+  // Ciclo for para hallar los múltiplos
+    System.out.println("El resultado es: ");
+    for (int i = 1; i <= num; i++) {
+    System.out.println (multiplo_inicial*i);
+    }
+  }
+}
