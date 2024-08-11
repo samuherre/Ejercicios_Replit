@@ -1,0 +1,16 @@
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) { 
+    
+    System.out.println("Ingrese el tamaño del arreglo: ");
+    Scanner input = new Scanner(System.in);
+    int n = input.nextInt();
+    int [] array_1 = new int [n];
+      for (int i = 0; i < n; i++){
+        array_1 [i] = 5;
+      }
+    for (int i = 0; i < n; i++){
+      System.out.print(array_1 [i] + " ");
+    }
+  }
+}
