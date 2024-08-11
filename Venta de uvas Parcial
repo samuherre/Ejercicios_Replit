@@ -1,0 +1,65 @@
+import java.util.Scanner;
+public class Main {
+
+  static double valor_total_blancas(double cantidad_vendida) {
+    double valor_total = cantidad_vendida * 2.5;
+    return valor_total;
+  }
+
+  static double valor_total_tintas(double cantidad_vendida) {
+    double valor_total = cantidad_vendida * 3.0;
+    return valor_total;
+  }
+
+  static double valor_total_rosadas(double cantidad_vendida) {
+    double valor_total = cantidad_vendida * 2.8;
+    return valor_total;
+  }
+
+  static double valor_total_compra(double valor_blancas, double valor_tintas, double valor_rosadas) {
+    double valor_total = valor_blancas + valor_tintas + valor_rosadas;
+    return valor_total;
+  }  
+
+  public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+
+    int tipo_uva;
+    double cantidad_vendida_blancas = 0;
+    double cantidad_vendida_tintas = 0;
+    double cantidad_vendida_rosadas = 0;
+    double precio_total;
+
+    while (true) {
+      System.out.println("Ingrese el número del tipo de uva que desea comprar: 1. Uva Blanca, 2. Uva Tinta, 3. Uva Rosada o el número 4. para salir");
+      tipo_uva = teclado.nextInt();
+
+      if (tipo_uva == 1) {
+        System.out.println("Ingrese la cantidad de uvas compradas del tipo 1 en Kg");
+        cantidad_vendida_blancas = teclado.nextDouble();
+        precio_total = valor_total_blancas(cantidad_vendida_blancas);
+      } else if (tipo_uva == 2) {
+        System.out.println("Ingrese la cantidad de uvas compradas del tipo 2 en Kg");
+        cantidad_vendida_tintas = teclado.nextDouble();
+        precio_total = valor_total_tintas(cantidad_vendida_tintas);
+      } else if (tipo_uva == 3) {
+        System.out.println("Ingrese la cantidad de uvas compradas del tipo 3 en Kg");
+        cantidad_vendida_rosadas = teclado.nextDouble();
+        precio_total = valor_total_rosadas(cantidad_vendida_rosadas);
+      } else if (tipo_uva > 4) {
+        System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+      } else if (tipo_uva == 4) {
+        System.out.println("Terminando ventas");
+        break;
+      }
+    }
+
+    System.out.println("Resumen de ventas:");
+    System.out.println("Uva blanca vendida: " + cantidad_vendida_blancas + " Kg");
+    System.out.println("Uva tinta vendida: " + cantidad_vendida_tintas + " Kg");
+    System.out.println("Uva rosada vendida: " + cantidad_vendida_rosadas + " Kg");
+
+    double valor_total = valor_total_compra(valor_total_blancas(cantidad_vendida_blancas), valor_total_tintas(cantidad_vendida_tintas), valor_total_rosadas(cantidad_vendida_rosadas));
+    System.out.println("Valor total de las ventas: " + valor_total);
+  }  
+}
