@@ -1,0 +1,30 @@
+import java.util.Scanner;
+class Main {
+public static void main(String[] args) {
+Scanner teclado = new Scanner(System.in);
+  // Definir variables
+  int tipo_botella, cantidad_botellas, puntos;
+  // Ingreso datos
+  System.out.println("¿Qué tipo de botella deseas reciclar 1, 2 o 3?");
+  tipo_botella = teclado.nextInt();
+  System.out.println("¿Cuántas botellas deseas reciclar?");
+  cantidad_botellas = teclado.nextInt();
+
+  // Procesamiento de datos
+  if (tipo_botella == 1){
+    puntos = cantidad_botellas * 5;
+  }
+  else if (tipo_botella == 2){
+    puntos = cantidad_botellas * 10;
+  }
+  else if (tipo_botella == 3){
+    puntos = cantidad_botellas * 15;
+  }
+  else {
+    puntos = 0;
+    System.out.println("Tipo de botella inválido. Porfavor seleccione el tipo 1, 2 o 3.");
+  }
+  // Resultados
+  System.out.println("Obtienes un total de " + puntos + " puntos por reciclar " + cantidad_botellas + " botellas de tipo " + tipo_botella + ".");
+  }
+}
