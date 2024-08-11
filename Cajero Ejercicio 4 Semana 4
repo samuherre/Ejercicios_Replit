@@ -1,0 +1,48 @@
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int saldo_inicial, opciones, saldo_ingreso, saldo_retiro, nuevo_saldo;
+    boolean brk = true;
+    saldo_inicial = 0;
+    nuevo_saldo = 0;
+    saldo_ingreso = 1;
+    saldo_retiro = 1;
+    brk = true;
+    System.out.println("Ingrese su saldo inicial:");
+    saldo_inicial = teclado.nextInt();
+    while (saldo_inicial >= 0 && brk == true){
+      System.out.println("Ingrese la opción a realizar: 1. Ingresar dinero 2. Retirar dinero 3. Mostrar dinero 4. Salir");
+    opciones = teclado.nextInt();
+    switch (opciones){
+    case 1:
+        System.out.println("Digite la cantidad de dinero a ingresar: ");
+        saldo_ingreso = teclado.nextInt();
+        nuevo_saldo = saldo_inicial + saldo_ingreso;
+        System.out.println("Tu saldo es: " + nuevo_saldo);
+        break;
+    case 2:
+        System.out.println("Digite la cantidad de dinero a retirar: ");
+        saldo_retiro = teclado.nextInt();
+        if (saldo_inicial >= saldo_retiro){
+          nuevo_saldo = saldo_inicial - saldo_retiro;
+          System.out.println("Tu saldo es: " + nuevo_saldo);
+        } else {
+          System.out.println("No tiene saldo para retirar");
+        }
+        break;
+    case 3:
+        nuevo_saldo = saldo_inicial;
+        System.out.println("Tu saldo es: " + nuevo_saldo);
+        break;
+    case 4:
+        System.out.println("Ha sido un placer atenderlo. Tu saldo actual es: " + nuevo_saldo);
+        brk = false;
+        break;
+    default:
+        System.out.println("Opción incorrecta. Porfavor elija la opción 1, 2, 3 o 4");
+    } 
+    saldo_inicial = nuevo_saldo;
+    }
+  }
+}
