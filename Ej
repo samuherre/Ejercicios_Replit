@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class Main {
+
+  public static void Ventas(double Uva1, double Uva2, double Uva3){
+    double total = Uva1*2.5 + Uva2*3 + Uva3*2.8;
+      total = total + total*0.25;
+      System.out.println("Uvas Blancas Vendidas: " + Uva1 + "Kg");
+      System.out.println("Uvas Tintas Vendidas" + Uva2 + "Kg");
+      System.out.println("Uvas Rosadas Vendidas" + Uva3 + "Kg");
+      System.out.println("Total de dinero en ventas:" + total);
+  }
+
+  public static void main(String[] args) {
+      double CantidadUvasBlancas = 0;
+      double CantidadUvasTintas = 0;
+      double CantidadUvasRosadas = 0;
+      double ingreso = 0;
+
+    Scanner input = new Scanner(System.in);
+    System.out.println("Acciones:");
+    System.out.println("1: Comprar Uvas Blancas");
+    System.out.println("2: Comprar Uvas Tintas");
+    System.out.println("3: Comprar Uvas Rosadas");
+    System.out.println("4: Salir");
+
+    while(true){
+      if(CantidadUvasBlancas + CantidadUvasRosadas >= 100){
+        System.out.println("Se han comprado más de 100 kg de uvas blancas y/o rosadas");
+          Ventas(CantidadUvasBlancas, CantidadUvasTintas, CantidadUvasRosadas);
+          break;
+      }
+      System.out.print("Ingrese una accion: ");
+      int accion = input.nextInt();
+      switch(accion){
+        case 1: 
+          System.out.println("ingrese la cantidad en kilos de uvas blancas que desea comprar: ");
+          ingreso = input.nextInt();
+          CantidadUvasBlancas += ingreso;
+          break;
+        case 2: 
+          System.out.println("ingrese la cantidad en kilos de uvas Tintas que desea comprar: ");
+          ingreso = input.nextInt();
+          CantidadUvasTintas += ingreso;
+          break;
+        case 3: 
+          System.out.println("ingrese la cantidad en kilos de uvas Rosadas que desea comprar: ");
+          ingreso = input.nextInt();
+          CantidadUvasRosadas += ingreso;
+          break;
+        case 4: 
+          System.out.println("Terminando ventas");
+          Ventas(CantidadUvasBlancas, CantidadUvasTintas, CantidadUvasRosadas);
+          break;
+    }
+  }
+ }
+}
