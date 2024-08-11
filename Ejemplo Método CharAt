@@ -1,0 +1,11 @@
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    System.out.println("Escriba una frase corta");
+    Scanner sc = new Scanner(System.in);
+    String a= sc.nextLine();
+    System.out.println("Indique el indice que desea ver (desde el 0 hasta la ultima posición)");
+    int b= sc.nextInt();
+    System.out.println("La letra en la posición "+b+" es: "+a.charAt(b));
+  }
+}
