@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingresar el nombre de los animales separados por espacios: ");
+        String nombres = scanner.nextLine();
+
+        String pancarta = crearPancarta(nombres);
+        System.out.println("Pancarta: " + pancarta);
+    }
+
+  public static String crearPancarta(String nombres) {
+      String[] partes = nombres.split(" ");
+      StringBuilder pancarta = new StringBuilder();
+
+      for (int i = 0; i < partes.length; i++) {
+          String nombre = partes[i];
+          char primeraLetra = Character.toUpperCase(nombre.charAt(0));
+          pancarta.append(primeraLetra).append(nombre.substring(1));
+          if (i < partes.length - 1) {
+              pancarta.append(" * ");
+          }
+      }
+      return pancarta.toString();
+  }
+}
