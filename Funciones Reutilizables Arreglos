@@ -1,0 +1,38 @@
+// Leer Datos
+public static void leerDatos(ArrayList<Integer> arr) {
+Scanner kb = new Scanner(System.in);
+System.out.println("ingrese dato al arreglo: ");
+int num = kb.nextInt();
+while (num>0) {
+  arr.add(num);
+  System.out.println("ingrese dato al arreglo: ");
+  num = kb.nextInt();
+}
+// Imprimir Arreglo
+  public static void imprimirArreglo(ArrayList<Integer> arr) {
+    int n = arr.size();
+    for (int i=0;i<n;i++) {
+      System.out.println("indice: "+i+" = "+arr.get(i));
+    }
+    System.out.println("");
+  }
+// Sumar Arreglo
+  public static int sumarArreglo(ArrayList<Integer> arr) {
+    int acum = 0;
+    int n = arr.size();
+    for (int i=0;i<n;i++) {
+      acum = acum + arr.get(i);
+    }
+    return acum;
+  }
+// Leer Datos Strings
+  public static void leerDatos(ArrayList<String> arr) {
+    Scanner kb = new Scanner(System.in);
+    System.out.println("Ingrese el nombre del enano: ");
+    String nombre_completo = kb.nextLine();
+    while (nombre_completo.equals("terminar") == false) {
+      nombre_completo = nombre_completo.toLowerCase();
+      nombre_completo = Character.toUpperCase(nombre_completo.charAt(0)) + nombre_completo.substring(1);
+      arr.add(nombre_completo);
+      System.out.print("Ingrese el nombre del enano: ");
+      nombre_completo = kb.nextLine();
