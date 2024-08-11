@@ -1,0 +1,19 @@
+import java.util.Scanner;
+  class Main {
+    public static void main(String[] args) {
+      Scanner teclado = new Scanner(System.in);
+// Definir Variables
+      int nota_serie;
+// Ingreso de datos
+      System.out.print("Ingrese la nota de la serie del 0-10: ");
+      nota_serie = teclado.nextInt();
+// Procesamiento de datos
+      if (nota_serie > 8 && nota_serie <= 10) {
+        System.out.println("La serie es muy buena");
+      } else if (nota_serie >= 5 && nota_serie <= 8) {
+        System.out.println("La serie es buena");
+      } else if (nota_serie >= 0 && nota_serie < 5) {
+        System.out.println("La serie no es tan buena");
+      } else System.out.println("Nota Invalida. Porfavor escribir un número entre 0-10");
+    }
+  }
