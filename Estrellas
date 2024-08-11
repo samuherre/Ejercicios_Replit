@@ -1,0 +1,21 @@
+import java.util.Scanner;
+public class Main {
+public static void main(String[] args) {
+  Scanner scanner = new Scanner(System.in);
+
+  int filas, columnas, i, j;
+  
+    System.out.print("Ingrese el número de filas: ");
+    filas = scanner.nextInt();
+
+    System.out.print("Ingrese el número de columnas: ");
+    columnas = scanner.nextInt();
+  
+        for (i = 0; i < filas; i++) {
+            for (j = 0; j < columnas; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+}
