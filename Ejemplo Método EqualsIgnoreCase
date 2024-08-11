@@ -1,0 +1,20 @@
+package metodos;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        String contrasena1, contrasena2;
+        Scanner ingresar = new Scanner(System.in);
+
+        System.out.println("Ingrese su contraseña: ");
+        contrasena1 = ingresar.next();
+
+        System.out.println("Ingrese nuevamente contraseña: ");
+        contrasena2 = ingresar.next();
+
+        if(contrasena1.equalsIgnoreCase(contrasena2)){
+            System.out.println(true);
+        }else{
+            System.out.println(false);
+        }
+    }
+}
