@@ -1,0 +1,50 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Main {
+  public static void leerDatos(ArrayList<Integer> arr) {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Ingrese un dato al arreglo: ");
+    int n = sc.nextInt();
+    while (n > 0) {
+      arr.add (n);
+      System.out.println("Ingrese un dato al arreglo: ");
+      n = sc.nextInt();
+    }
+  }
+  public static int sumarArreglo(ArrayList<Integer> arr) {
+    int acum = 0;
+    int n = arr.size();
+    for(int i=0; i<n; i++) {
+      acum = acum + arr.get(i);
+    }
+    return acum;
+  }
+  public static float promedioArreglo(ArrayList<Integer> arr) {
+    int acum = 0;
+    int n = arr.size();
+    float promedio = 0;
+    for(int i=0; i<n; i++) {
+      acum = acum + arr.get(i);
+      promedio = acum/n;
+    }
+    return promedio;
+  }
+  public static void imprimirArreglo(ArrayList<Integer> arr) {
+    int n = arr.size();
+    for(int i=0; i<n; i++) {
+      System.out.println(arr.get(i));
+    }  
+  }
+  public static void main(String[] args) {
+    ArrayList<Integer> num = new ArrayList<Integer>();
+    int suma;
+    float promedio;
+    leerDatos(num);
+    imprimirArreglo (num);
+    suma = sumarArreglo(num);
+    promedio = promedioArreglo(num);
+    System.out.println("La suma es: " + suma);
+    System.out.println("El promedio es: " + promedio);
+  }
+}
