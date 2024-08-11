@@ -1,0 +1,24 @@
+public class Main {
+  public static void main(String[] args) {
+    String str = "Hola amigo Andrés";
+    String str2 = "Yo, pepe, revelé el secreto";
+    int a = str.indexOf("a");
+    int a_despues_de_indice_4 = str.indexOf("a", 4);
+    int a_despues_de_indice_7 = str.indexOf("a", 7);
+    System.out.println(a);
+    System.out.println(a_despues_de_indice_4);
+    System.out.println(a_despues_de_indice_7);
+    System.out.println("Str: " + str);
+    if(str.indexOf("a")!=-1){
+      System.out.println("Hay una 'a'!!");
+    } else{
+      System.out.println("No hay na'");
+    }
+    System.out.println("Str: " + str2);
+      if(str2.indexOf("a")!=-1){
+        System.out.println("Hay una 'a'!!");
+      } else{
+        System.out.println("No hay na'");
+      }
+  }
+}
