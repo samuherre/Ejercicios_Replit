@@ -1,0 +1,188 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String[][] pasajero = null;
+        int asientosReservados = 0;
+        int caso = 0;
+        System.out.println("Bienvenido al Sistema de Gestion de Pasajeros");
+        while (caso != 6) {
+            System.out.println("\n--- Menu ---");
+            System.out.println("1. Registrar pasajeros    ");
+            System.out.println("2. Mostrar lista de pasajeros");
+            System.out.println("3. Reservar vuelos");
+            System.out.println("4. Buscar pasajeros por edad");
+            System.out.println("5. Ordenar vuelos");
+            System.out.println("6. Salir del programa");
+            caso = sc.nextInt();
+            switch (caso){
+                case 1:
+                    pasajero = registrarPasajero();
+                    break;
+                case 2:
+                    mostrarPasajero(pasajero);
+                    break;
+                case 3:
+                    reservarVuelo(asientosReservados);
+                    break;
+                case 4:
+                    buscarPasajeroEdad(pasajero);
+                    break;
+                case 5:
+                    pasajero = ordenarVuelo(pasajero);
+                    mostrarVuelos(pasajero);
+                    break;
+                case 6:
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("Ingresar un número válido.");
+            }
+        }
+    }
+
+    public static String[][] registrarPasajero() {
+        Scanner kb = new Scanner(System.in);
+        System.out.println("Ingrese el número de pasajeros que desea registrar: ");
+        int numPasajeros = kb.nextInt();
+        String [][] pasajero = new String[3][numPasajeros];
+        kb.nextLine();
+        for (int i = 0; i < numPasajeros; i++) {
+            System.out.println("Ingrese el nombre del pasajero: ");
+            pasajero[0][i] = kb.nextLine();
+            System.out.println("Ingrese la edad del pasajero: ");
+            pasajero[1][i] = kb.nextLine();
+            System.out.println("Ingrese el destino del pasajero: ");
+            pasajero[2][i] = kb.nextLine();
+            System.out.println(" ");
+        }
+        return pasajero;
+    } 
+
+    public static void mostrarPasajero(String[][] pasajero) {
+        for (int i = 0; i < pasajero[0].length; i++ ) {
+            System.out.println("Nombre: " + pasajero[0][i]);
+            System.out.println("Edad: " + pasajero[1][i] + " años");
+            System.out.println("Vuelo con destino a: " + pasajero[2][i]);
+            System.out.println(" ");
+        }
+    }
+
+    public static void reservarVuelo(int asientosReservados) {
+        Scanner sc = new Scanner(System.in);
+        int asientos = 1;
+        int totalAsientos = 100;
+        int asientosDisponibles = 100;
+        int acum = 0;
+        ArrayList<Integer> Reservas = new ArrayList<Integer>();
+        String fechaVuelo, destino;
+
+        System.out.println("Ingrese el destino: ");
+        destino = sc.nextLine();
+        System.out.println(" ");
+
+        System.out.println("Ingrese la fecha del vuelo (dd/mm/aaaa): ");
+        fechaVuelo = sc.nextLine();
+        System.out.println(" ");
+
+        while (asientos != -1) {
+            System.out.println("Ingrese el número de asientos que desea reservar o -1 para dejar de reservar: ");
+            asientos = sc.nextInt();
+
+            if (asientos == -1) {
+                break;
+            }
+
+            if (asientos <= totalAsientos) {
+                Reservas.add(asientos);
+                totalAsientos -= asientos;
+                asientosDisponibles = totalAsientos;
+                System.out.println("Reserva realizada con éxito. Asientos restantes: " + totalAsientos);
+                System.out.println(" ");
+            } else {
+                System.out.println("Lo siento, no hay suficientes asientos disponibles para su reserva.");
+                System.out.println(" ");
+            }
+        }
+
+        int n = Reservas.size();
+        for (int i = 0; i < n; i++) {
+            acum = acum + Reservas.get(i);
+        }
+        System.out.println("Resumen reserva: ");
+        System.out.println("Destino: " + destino);
+        System.out.println("Fecha de vuelo: " + fechaVuelo);
+        System.out.println("Los asientos reservados son: " + acum);
+    }
+
+    public static void buscarPasajeroEdad(String[][] pasajero) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el rango de edad del pasajero que desea buscar: ");
+        System.out.println("1. 1-15 años");
+        System.out.println("2. 16-30 años");
+        System.out.println("3. 31+ años");
+        int opcion = sc.nextInt();
+
+        for (int i = 0; i < pasajero[0].length; i++) {
+            int edad = Integer.parseInt(pasajero[1][i]);
+            switch (opcion) {
+                case 1:
+                    if (1 <= edad && edad <= 15) {
+                        System.out.println("Nombre: " + pasajero[0][i]);
+                        System.out.println("Edad: " + pasajero[1][i] + " años");
+                        System.out.println("Vuelo con destino a: " + pasajero[2][i]);
+                        System.out.println(" ");
+                    }
+                    break;
+                case 2:
+                    if (16 <= edad && edad <= 30) {
+                        System.out.println("Nombre: " + pasajero[0][i]);
+                        System.out.println("Edad: " + pasajero[1][i] + " años");
+                        System.out.println("Vuelo con destino a: " + pasajero[2][i]);
+                        System.out.println(" ");
+                    }
+                    break;
+                case 3:
+                    if (31 <= edad) {
+                        System.out.println("Nombre: " + pasajero[0][i]);
+                        System.out.println("Edad: " + pasajero[1][i] + " años");
+                        System.out.println("Vuelo con destino a: " + pasajero[2][i]);
+                        System.out.println(" ");
+                    }
+                    break;
+                default:
+                    System.out.println("Opción inválida de búsqueda por edad.");
+            }
+        }
+    }
+  
+    public static String[][] ordenarVuelo(String[][] pasajero) {
+        int n = pasajero[2].length;
+        boolean swapped;
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (pasajero[2][j].compareTo(pasajero[2][j + 1]) > 0) {
+                    String temp = pasajero[2][j];
+                    pasajero[2][j] = pasajero[2][j + 1];
+                    pasajero[2][j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            if (!swapped) {
+                break;
+            }
+        }
+        return pasajero;
+    }
+  
+    public static void mostrarVuelos(String[][] pasajero) {
+      for (int i = 0; i < pasajero[0].length; i++ ) {
+          System.out.println("Vuelos ordenados por orden alfabético: ");
+          System.out.println("Vuelo " + i + " con destino a: " + pasajero[2][i]);
+      }
+  }
+}
