@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+    
+        int x, num;
+        System.out.println("Ingresar el tamaño del arreglo: ");
+        x = input.nextInt();
+        
+        int[] arr_int = new int[x];
+
+        System.out.println("Ingrese " + x + " números enteros:");
+        for (int i = 0; i < x; i++){
+            num = input.nextInt();
+            arr_int[i] = num * 2;
+        }
+
+        System.out.println("El doble del valor multiplicado por tres es: ");
+        for (int i = 0; i < x; i++){
+            System.out.println(arr_int[i] * 3);
+        }
+    }
+}
