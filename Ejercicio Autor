@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        String frase;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingresar la frase: ");
+        frase = scanner.nextLine();
+
+        if (terminaConPunto(frase)) {
+            System.out.println("La frase finaliza con punto");
+        } else {
+            System.out.println("La frase no finaliza con punto");
+        }
+    }
+
+    public static boolean terminaConPunto(String cadena) {
+        char ultimoCaracter = cadena.charAt(cadena.length() - 1);
+        return ultimoCaracter == '.';
+    }
+}
