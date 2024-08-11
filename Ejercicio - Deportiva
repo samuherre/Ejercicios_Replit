@@ -1,0 +1,61 @@
+import java.util.Scanner;
+public class Main{
+    static ComprarRopaDeportiva(int opcion, int cantidad){
+        int productosPrecio[]
+                = {0, 0, 0, 0, 0};
+
+        productosPrecio[1] = 15; // Precio Camiseta
+        productosPrecio[2] = 29; // Precio Pantalon
+        productosPrecio[3] = 49; // Precio Zapatillas
+        productosPrecio[4] = 9; // Precio Calcetines
+
+        int precioTotal;
+        String nombreProducto;
+        int detalles[] = {0, 0};
+
+        if(opcion<=4 && opcion>=1){
+            
+            precioTotal = productosPrecio[opcion] * cantidad;
+
+            switch (opcion){
+                case 1:
+                    nombreProducto = "Camiseta";
+                case 2:
+                    nombreProducto = "Pantalon";
+                case 3:
+                    nombreProducto = "Zapatillas";
+                case 4:
+                    nombreProducto = "Calcetines";
+            }
+
+            detalles[0] = precioTotal;
+
+            detalles[1] = cantidad;
+
+            return nombreProducto, detalles;
+        }
+    }
+    public static void main(String[] args) {
+        int opcionUsuario;
+        int cantidadAComprar;
+        String nombreProductoUsuario;
+        int detalleCompra[] = {0, 0};
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("¡Bienvenido a la tienda de ropa deportiva!");
+        System.out.println("¿Qué desea comprar?");
+
+        System.out.println("[1] Camiseta: ");
+        System.out.println("[2] Pantalon: ");
+        System.out.println("[3] Pantalon: ");
+        System.out.println("[4] Pantalon: ");
+
+        opcionUsuario = teclado.nextInt();
+
+        nombreProductoUsuario, detalle_compra = ComprarRopaDeportiva(opcionUsuario, cantidadAComprar);
+
+        System.out.println(nombreProductoUsuario);
+        System.out.println(detalle_compra[0]);
+        System.out.println(detalle_compra[1]);
+    }
+  }
+}
