@@ -1,0 +1,25 @@
+public class Circulo{
+  private float radio;
+  public Circulo() {
+      radio = 0.0f;
+  }
+  public Circulo(float r) {
+      radio = r;
+  }
+  public float getRadio() {
+      return radio;
+  }
+  public void setRadio(float r) {
+      radio = r;
+  }
+  public float getArea() {
+      float res;
+      res = 3.1416f * radio * radio;
+      return res;
+  }
+  public float getCircunferencia() {
+    float res;
+    res = 2 * 3.1416f * radio;
+    return res;
+  }
+}
