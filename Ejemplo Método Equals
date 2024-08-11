@@ -1,0 +1,12 @@
+public class Main {
+  public static void main(String[] args) {
+    System.out.println("Ejemplo de String!");
+    String str1= new String ("Hola");
+    String str2= new String ("Hola");
+    if (str1.equals(str2)){
+      System.out.println("Ambos son iguales" +  " " + str1);
+    } else {
+       System.out.println("No son iguales");
+    }
+  }
+}
