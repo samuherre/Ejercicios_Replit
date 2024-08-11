@@ -1,0 +1,16 @@
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    int i = 1;
+    Scanner entrada = new Scanner(System.in);
+    int num = entrada.nextInt();
+    while (i<6){
+      if (num>5){
+        System.out.println("Parcial 1");
+        i=i+2;
+      }
+    }
+    System.out.println("Fin del programa");
+    entrada.close();
+  }
+}
