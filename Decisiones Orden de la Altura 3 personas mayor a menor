@@ -1,0 +1,37 @@
+import java.util.Scanner;
+class Main {
+  public static void main(String[] args) {
+    // Definir variables:
+    Scanner kb = new Scanner(System.in);
+    float a, b, c;
+
+    // Entrada de datos:
+    System.out.println("Altura de Lucas (a)):");
+    a = kb.nextFloat();
+    System.out.println("Altura de Mateo (b)):");
+    b = kb.nextFloat();
+    System.out.println("Altura de Juan (c)):");
+    c = kb.nextFloat();
+
+    // Procesamiento de datos y salida de resultados:
+    if (a > b && b > c) {
+      System.out.println("El orden de las alturas es: Lucas, Mateo, Juan");
+    }
+    if (a > c && c > b) {
+      System.out.println("El orden de las alturas es: Lucas, Juan, Mateo");
+    }
+    if (c > a && a > b) {
+      System.out.println("El orden de las alturas es: Juan, Lucas, Mateo");
+    }
+    if (c > b && b > a){
+      System.out.println("El orden de las alturas es: Juan, Mateo, Lucas");
+    }
+    if (b > a && a > c){
+      System.out.println("El orden de las alturas es: Mateo, Lucas, Juan");
+    }
+    if (b > c && c > a){
+      System.out.println("El orden de las alturas es: Mateo, Juan, Lucas");
+    }
+    kb.close();
+  }
+}
