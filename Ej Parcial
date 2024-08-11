@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // Definir precios de los productos
+        int precioTenis = 200;
+        int precioCamisetas = 200;
+        int precioGorras = 200;
+        int precioPantalonetas = 250;
+        int precioSudaderas = 250;
+        // Inicializar variables para la cantidad de productos y el valor total vendido
+        int cantidadTotal = 0;
+        int valorTotal = 0;
+        // Ingresar producto y cantidad
+        System.out.println("Ingrese el producto (tenis, camisetas, gorras, pantalonetas, sudaderas):");
+        String producto = scanner.nextLine().toLowerCase();
+        System.out.println("Ingrese la cantidad de productos:");
+        int cantidad = scanner.nextInt();
+        // Validar cantidad para camisetas y gorras
+        if ((producto.equals("camisetas") || producto.equals("gorras")) && cantidad > 10) {
+            System.out.println("Venta detenida. Cantidad máxima permitida para camisetas y gorras es 10.");
+        } else {
+            // Calcular valor y mostrar detalles de la venta
+            if (producto.equals("tenis") || producto.equals("camisetas") || producto.equals("gorras")) {
+                valorTotal += precioTenis * cantidad;
+            } else {
+                valorTotal += precioPantalonetas * cantidad;
+            }
+            cantidadTotal += cantidad;
+            System.out.println("Detalles de la venta:");
+            System.out.println("Producto: " + producto);
+            System.out.println("Cantidad: " + cantidad);
+            System.out.println("Valor total: " + valorTotal);
+            System.out.println("Cantidad total: " + cantidadTotal);
+        }
+        // Cerrar el scanner
+        scanner.close();
+    }
+}
