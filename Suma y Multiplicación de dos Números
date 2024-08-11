@@ -1,0 +1,21 @@
+import java.util.Scanner;
+class Main {
+  public static void main(String[] args) {
+    
+    // Definir las variables
+    Float Valor1;
+    Float Valor2;
+    
+    // Entrada de datos usuario
+    Scanner teclado = new Scanner(System.in);
+    System.out.println("Ingrese un número: ");
+    Valor1 = teclado.nextFloat();
+    System.out.println("Ingrese otro número: ");
+    Valor2 = teclado.nextFloat();
+    
+    // Solución problema
+    System.out.println("La suma de los valores es: " + (Valor1 + Valor2));
+    System.out.println("La multiplicación de los valores es: " + (Valor1 * Valor2));
+    
+    }
+}
