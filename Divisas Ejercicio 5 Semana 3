@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        
+        // Definir variables
+        int divisas_actuales, accion_realizada = 0, divisas_accion;
+
+        // Ingreso de datos
+        System.out.println("Ingrese el número de divisas actuales: ");
+        divisas_actuales = teclado.nextInt();
+      
+        if (divisas_actuales < 0) {
+            System.out.println("Acción inválida. El número de divisas actuales no puede ser negativo.");
+        } else {
+            System.out.println("Ingrese el número de la acción a realizar: 1. comprar divisas, 2. vender divisas y 3 retirar divisas");
+            accion_realizada = teclado.nextInt();
+        }
+
+      // Procesamiento de datos
+      if (accion_realizada == 1) {
+        System.out.println("Ingrese el número de divisas a comprar: ");
+        divisas_accion = teclado.nextInt();
+        if (divisas_accion < 0) {
+            System.out.println("Acción inválida. El número de divisas a comprar no puede ser negativo.");
+        } else {
+            divisas_actuales = divisas_actuales + divisas_accion;
+            System.out.println("La cantidad de divisas actuales es: " + divisas_actuales);
+          }
+      } else if (accion_realizada == 2) {
+        System.out.println("Ingrese el número de divisas a vender: ");
+        divisas_accion = teclado.nextInt();
+        if (divisas_accion < 0) {
+            System.out.println("Acción inválida. El número de divisas a vender no puede ser negativo.");
+      } else if (divisas_accion > divisas_actuales) {
+          System.out.println("Acción inválida. No hay suficientes divisas actuales para vender");
+            } else {
+                divisas_actuales = divisas_actuales - divisas_accion;
+                System.out.println("La cantidad de divisas actuales es: " + divisas_actuales);
+           }
+      } else if (accion_realizada == 3) {
+          System.out.println("Ingrese el número de divisas a retirar: ");
+          divisas_accion = teclado.nextInt();
+          if (divisas_accion < 0) {
+              System.out.println("Acción inválida. El número de divisas a retirar no puede ser negativo.");
+            } else if (divisas_accion > divisas_actuales) {
+                System.out.println("Acción inválida. No hay suficientes divisas actuales para retirar");
+      } else { 
+          divisas_actuales = divisas_actuales - divisas_accion;
+          System.out.println("La cantidad de divisas actuales es: " + divisas_actuales);
+            }
+        }
+    }
+}
