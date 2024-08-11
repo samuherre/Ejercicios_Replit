@@ -1,0 +1,25 @@
+import java.util.Scanner;
+public class Main {
+public static void main(String[] args) {
+Scanner teclado = new Scanner(System.in);
+  // Definición variables
+  int votos_1, votos_2;
+
+  // Ingreso de datos
+  System.out.print("Ingrese el número de votos del candidato 1: ");
+  votos_1 = teclado.nextInt();
+  System.out.print("Ingrese el número de votos del candidato 2: ");
+  votos_2 = teclado.nextInt();
+
+  // Proceamiento de datos
+  if (votos_1 > votos_2){
+    System.out.println("El ganador es el candidato 1");
+  }
+  else if (votos_1 < votos_2){
+    System.out.println("El ganador es el candidato 2");
+  }
+  else{
+    System.out.println("Ambos tienen los mismos votos, hay empate");
+  }
+}
+}
