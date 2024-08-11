@@ -1,0 +1,10 @@
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+      Scanner kb = new Scanner(System.in);
+      int n;
+      System.out.println("Ingrese el número de pasajeros a registrar: ");
+      n = kb.nextInt();
+      String [][] usuario = new String[3][n];
+  }
+}
