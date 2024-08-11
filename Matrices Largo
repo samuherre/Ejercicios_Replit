@@ -1,0 +1,82 @@
+import java.util.Scanner;
+  import java.util.Random;
+  class Main {
+    public static void main(String[] args) {
+      int[][] matriz = new int[4][5];
+      llenarMatriz1_n(matriz);
+      imprimirMatriz(matriz);
+      System.out.println("fila:"+3);
+      imprimirFila(matriz, 3);
+      System.out.println("columna:"+2);
+      imprimirColumna(matriz, 2);
+    }  
+    public static void imprimirFila(int[][] arr, int fila) {
+      int m = arr.length; // número de filas
+      int n = arr[0].length; // número de columnas
+      int i;
+      for (i=0;i<n;i++) {
+          System.out.print(arr[fila][i]+" ");
+      }
+      System.out.println("");
+    }
+    public static void imprimirColumna(int[][] arr, int columna) {
+      int m = arr.length; // número de filas
+      int n = arr[0].length; // número de columnas
+      int j;
+      for (j=0;j<m;j++) {
+          System.out.println(arr[j][columna]+" ");
+      }
+      System.out.println("");
+    }
+
+      public static void llenarMatriz1_n(int[][] arr) {
+      // llenar la matriz con números del 1 al m x n
+      int m = arr.length; // número de filas
+      int n = arr[0].length; // número de columnas
+      int i,j,cont=1;
+      for (j=0;j<m;j++) {
+        for (i=0;i<n;i++) {
+          arr[j][i]=cont;
+          cont = cont + 1;
+        }
+      }
+    }
+
+    public static void imprimirMatriz(int[][] arr) {
+      int m = arr.length; // número de filas
+      int n = arr[0].length; // número de columnas
+      int i,j;
+      for (j=0;j<m;j++) {
+        for (i=0;i<n;i++) {
+          System.out.print(arr[j][i]+" ");
+        }
+        System.out.println("");
+      }
+    }
+
+    public static void llenarMatrizAleatorio(int[][] arr) {
+      int m = arr.length; // número de filas
+      int n = arr[0].length; // número de columnas
+      int i,j;
+      Random r = new Random();
+      for (j=0;j<m;j++) {
+        for (i=0;i<n;i++) {
+          arr[j][i]=r.nextInt(1,100); // llenar la matriz entre 1 y 100
+        }
+      }
+    }
+
+    public static void llenarMatrizTeclado(int[][] arr) {
+      Scanner kb = new Scanner(System.in);
+      int m = arr.length; // número de filas
+      int n = arr[0].length; // número de columnas
+      int i,j,val;
+      for (j=0;j<m;j++) {
+        for (i=0;i<n;i++) {
+          System.out.print("entre valor para ["+j+"]["+i+"]=");
+          val=kb.nextInt();
+          arr[j][i]=val;
+        }
+      }
+    }
+  }
