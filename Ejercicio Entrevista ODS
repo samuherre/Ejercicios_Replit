@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese la respuesta de la primera ONG: ");
+        String respuesta1 = scanner.nextLine();
+        System.out.print("Ingrese la respuesta de la segunda ONG: ");
+        String respuesta2 = scanner.nextLine();
+
+        int longitudRespuesta1 = respuesta1.length();
+        int longitudRespuesta2 = respuesta2.length();
+
+        if (longitudRespuesta1 > longitudRespuesta2) {
+            System.out.println(respuesta1 + " es la respuesta más larga");
+        } else if (longitudRespuesta2 > longitudRespuesta1) {
+            System.out.println(respuesta2 + " es la respuesta más larga");
+        } else {
+            System.out.println("Ambas respuestas son iguales en longitud");
+        }
+    }
+}
