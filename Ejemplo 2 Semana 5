@@ -1,0 +1,27 @@
+import java.util.Scanner;
+public class Main {
+  
+  static double convertir_dolar_peso (doublle valor_dolar, double     tasa_conversion)
+  {
+    double valor_peso;
+    valor_peso = valor_dolar * tasa_conversion;
+
+    return valor_peso;
+  }
+
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    double valor_dolar;
+    double tasa_conversion;
+    double valor_peso;
+
+    System.out.println("Ejemplo de funciones!");
+    System.out.print("Ingrese el valor en dolares que desea convertir: ");
+    valor_dolar = input.nextDouble();
+    System.out.print("Ingrese el valor de la tasa de conversion: ");
+    tasa_conversion = input.nextDouble();
+    valor_peso = convertir_dolar_peso(valor_dolar, tasa_conversion);
+
+    System.out.println("US$ " + valor_dolar " son: COP$ " + valor_peso);
+  }
+}
