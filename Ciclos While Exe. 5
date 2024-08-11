@@ -1,0 +1,13 @@
+import java.util.Scanner;
+public class Main{
+  public static void main(String[] args){
+    String palabra="";
+    int numero1;
+    int numero2;
+    
+    System.out.println("Ingrese una de las siguientes palabras: Suma, Resta, Cuadrado, Salir");
+    Scanner sc = new Scanner(System.in);
+    palabra=entrada.nextLine();
+      
+    }
+  }
