@@ -1,0 +1,37 @@
+import java.util.HashMap;
+import java.util.Map;
+public class RecycleApp { // Define the RecycleApp class
+    public RecycleApp() {
+        // Constructor for RecycleApp class
+    }
+}
+public class Main {
+    private Map<String, String> baseDeDatosResiduos;
+    public void main() {
+        baseDeDatosResiduos = new HashMap<>(); // Initializing the baseDeDatosResiduos map
+        baseDeDatosResiduos.put("plastico", "Depositar en el contenedor amarillo.");
+        baseDeDatosResiduos.put("papel", "Reciclar en el contenedor azul.");
+        baseDeDatosResiduos.put("vidrio", "Colocar en el contenedor verde.");
+        // Add more types of waste here...
+    }
+    public String escanearResiduo(String objetoEscaneado) {
+        if (baseDeDatosResiduos.containsKey(objetoEscaneado.toLowerCase())) {
+            return baseDeDatosResiduos.get(objetoEscaneado.toLowerCase());
+        } else {
+            return "No se encontró información para este residuo.";
+        }
+    }
+    public String encontrarPuntosReciclaje(double latitud, double longitud) {
+        return "Puntos de reciclaje cercanos: [Lista de ubicaciones]";
+    }
+    public static void main(String[] args) {
+        RecycleApp app = new RecycleApp(); // Corrected instantiation of RecycleApp class
+        Main mainObject = new Main(); // Instantiate Main class
+        mainObject.main(); // Call the main method to initialize baseDeDatosResiduos
+        String residuoEscaneado = "plastico";
+        System.out.println("Instrucciones para el residuo escaneado: " + mainObject.escanearResiduo(residuoEscaneado));
+        double latitudUsuario = 6.2715;
+        double longitudUsuario = -75.5658;
+        System.out.println("Puntos de reciclaje cercanos: " + mainObject.encontrarPuntosReciclaje(latitudUsuario, longitudUsuario));
+    }
+}
