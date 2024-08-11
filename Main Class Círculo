@@ -1,0 +1,19 @@
+public class Main {
+  public static void main(String[] args) {
+
+    Circulo circulo1 = new Circulo();
+    float r = 5.5f;
+    circulo1.setRadio(r);
+    float area = circulo1.getArea();
+    float circunf = circulo1.getCircunferencia();
+    System.out.println("El area del circulo es: " + area);
+    System.out.println("La circunferencia del circulo es: " + circunf);
+    System.out.println("");
+
+    Circulo circulo2 = new Circulo(2.2f);
+    area = circulo2.getArea();
+    circunf = circulo2.getCircunferencia();
+    System.out.println("El area del circulo 2 es: " + area);
+    System.out.println("La circunferencia del circulo 2 es: " + circunf);
+  }
+}
