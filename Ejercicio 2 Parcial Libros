@@ -1,0 +1,150 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Main {
+
+  public static void agregarLibro(ArrayList<String> arr) {
+      Scanner kb = new Scanner(System.in);
+      System.out.println("Ingresar nombre del libro o la palabra fin para terminar de ingresar libros: ");
+      String nombreLibro = kb.nextLine();
+      while (nombreLibro.equals("fin") == false) {
+          nombreLibro = nombreLibro.toLowerCase();
+          nombreLibro = Character.toUpperCase(nombreLibro.charAt(0)) + nombreLibro.substring(1);
+          arr.add(nombreLibro);
+          System.out.println("Ingresar nombre del libro o la palabra fin para terminar de ingresar libros: ");
+          nombreLibro = kb.nextLine();
+      }
+  }
+
+  public static void mostrarLibros(ArrayList<String> arr){
+    for (int i = 0; i < arr.size(); i++) {
+      System.out.println(arr.get(i));
+    }
+  }
+
+  public static void buscarLibro(ArrayList<String> arr, String nombreLibro){
+    Scanner kb = new Scanner(System.in);
+    boolean encontrado = false;
+    System.out.println("Ingresar el nombre del libro que desea buscar: ");
+    nombreLibro = kb.nextLine();
+    for (int i = 0; i < arr.size(); i++) {
+      nombreLibro = nombreLibro.toLowerCase();
+      nombreLibro = Character.toUpperCase(nombreLibro.charAt(0)) + nombreLibro.substring(1);
+      if (arr.get(i).equals(nombreLibro)) {
+        encontrado = true;
+      }
+    }
+    if (encontrado == true) {
+      System.out.println("El libro " + nombreLibro + " si se encuentra en la lista.");
+    } else {
+      System.out.println("El libro " + nombreLibro + " no se encuentra en la lista.");
+    }
+  }
+
+  public static void actualizarLibro(ArrayList<String> arr, String nombreLibro){
+    Scanner kb = new Scanner(System.in);
+    System.out.println("Ingresar el nombre del libro que desea cambiar: ");
+    nombreLibro = kb.nextLine();
+    for (int i = 0; i < arr.size(); i++) {
+      nombreLibro = nombreLibro.toLowerCase();
+      nombreLibro = Character.toUpperCase(nombreLibro.charAt(0)) + nombreLibro.substring(1);
+      if (arr.get(i).equals(nombreLibro)) {
+        System.out.println("Ingresar el nuevo nombre del libro: ");
+        nombreLibro = kb.nextLine();
+        nombreLibro = nombreLibro.toLowerCase();
+        nombreLibro = Character.toUpperCase(nombreLibro.charAt(0)) + nombreLibro.substring(1);
+        arr.set(i, nombreLibro);
+      }
+    }
+  }
+
+  public static void eliminarLibro(ArrayList<String> arr, String nombreLibro){
+    Scanner kb = new Scanner(System.in);
+    System.out.println("Ingresar el nombre del libro que desea eliminar: ");
+    nombreLibro = kb.nextLine();
+    for (int i = 0; i < arr.size(); i++) {
+      nombreLibro = nombreLibro.toLowerCase();
+      nombreLibro = Character.toUpperCase(nombreLibro.charAt(0)) + nombreLibro.substring(1);
+      if (arr.get(i).equals(nombreLibro)) {
+        arr.remove(i);
+      }
+    }
+  }
+
+  public static String calcularTituloLargo(ArrayList<String> arr){
+    String tituloMasLargo = "";
+    for (int i = 0; i < arr.size(); i++) {
+      if (arr.get(i).length() > tituloMasLargo.length()) {
+        tituloMasLargo = arr.get(i);
+      }
+    }
+    return tituloMasLargo;
+  }
+
+  public static String tituloMasCorto(ArrayList<String> arr){
+    String tituloMasCorto = arr.get(0);
+    for (int i = 0; i < arr.size(); i++) {
+      if (arr.get(i).length() < tituloMasCorto.length()) {
+        tituloMasCorto = arr.get(i);
+      }
+    }
+    return tituloMasCorto;
+  }
+
+  public static ArrayList<Integer> longitudesNombres(ArrayList<String> arr) {
+      ArrayList<Integer> longitudes = new ArrayList<Integer>();
+      for (String elemento: arr) {
+          longitudes.add(elemento.length());
+      }
+      return longitudes;
+  }
+
+  public static int sumaLongitudesPalabras(ArrayList<String> arr) {
+      int suma = 0;
+      for (String elemento: arr) {
+          String[] palabras = elemento.split(" ");
+          for (String palabra : palabras) {
+              suma += palabra.length();
+          }
+      }
+      return suma;
+  }
+
+  public static void main(String[] args) {
+    Scanner kb = new Scanner(System.in);
+    ArrayList<String> arr = new ArrayList<String>();
+    String nombreTitulo = null;
+    int caso = 0;
+    while (caso != 6){
+      System.out.println("Ingresar el número de la acción que quiera realizar: ");
+      System.out.println("1. Agregar Libros 2. Mostrar Libros 3. Buscar Libroo 4. Cambiar Nombre 5. Eliminar Libro 6. Salir");
+      caso = kb.nextInt();
+        switch(caso){
+          case 1:
+          agregarLibro(arr);
+          break;
+          case 2:
+          mostrarLibros(arr);
+          break;
+          case 3:
+          buscarLibro(arr, nombreTitulo);
+          break;
+          case 4:
+          actualizarLibro(arr, nombreTitulo);
+          break;
+          case 5:
+          eliminarLibro(arr, nombreTitulo);
+          break;
+          case 6:
+          System.out.println("Saliendo del programa...");
+          break;
+          default:
+          System.out.println("Ingresar un número válido.");
+        }
+    }
+  System.out.println("El nombre más largo es: " + calcularTituloLargo(arr));
+  System.out.println("El nombre más corto es: " + tituloMasCorto(arr));
+  System.out.println("Las longitudes de los nombres son: " + longitudesNombres(arr));
+  System.out.println("La suma de las longitudes de las palabras es: " + sumaLongitudesPalabras(arr));
+  }
+}
