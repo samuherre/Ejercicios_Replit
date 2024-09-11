@@ -1,0 +1,155 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Ingrese la URL del archivo de texto: ");
+            String urlString = scanner.nextLine();
+
+            try {
+                List<String> lines = leerArchivoDesdeURL(urlString);
+                char letra = identificarLetra(lines);
+                System.out.println("La letra identificada es: " + letra);
+            } catch (Exception e) {
+                System.out.println("Error al procesar el archivo: " + e.getMessage());
+            }
+
+            System.out.println(); // Línea en blanco para separar las ejecuciones
+        }
+
+        scanner.close();
+    }
+
+    private static List<String> leerArchivoDesdeURL(String urlString) throws Exception {
+        URL url = new URL(urlString);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+        List<String> lines = new ArrayList<>();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
+        }
+        reader.close();
+        return lines;
+    }
+
+    private static char identificarLetra(List<String> lines) {
+        if (esLetraH(lines)) return 'H';
+        if (esLetraA(lines)) return 'A';
+        if (esLetraE(lines)) return 'E';
+        if (esLetraI(lines)) return 'I';
+        if (esLetraO(lines)) return 'O';
+        if (esLetraT(lines)) return 'T';
+        return '?'; // Si no se identifica ninguna letra conocida
+    }
+
+    private static boolean esLetraH(List<String> lines) {
+        String[] patron = {
+            "0000011000011000",
+            "0000011000011000",
+            "0000011000011000",
+            "0000011111111000",
+            "0000011111111000",
+            "0000011000011000",
+            "0000011000011000",
+            "0000011000011000",
+            "0000011000011000",
+            "0000011000011000"
+        };
+        return compararPatron(lines, patron);
+    }
+
+    private static boolean esLetraA(List<String> lines) {
+        String[] patron = {
+            "0000001111100000",
+            "0000011000110000",
+            "0000110000011000",
+            "0000110000011000",
+            "0000111111111000",
+            "0000111111111000",
+            "0000110000011000",
+            "0000110000011000",
+            "0000110000011000",
+            "0000110000011000"
+        };
+        return compararPatron(lines, patron);
+    }
+
+    private static boolean esLetraE(List<String> lines) {
+        String[] patron = {
+            "0000111111111000",
+            "0000111111111000",
+            "0000110000000000",
+            "0000110000000000",
+            "0000111111100000",
+            "0000111111100000",
+            "0000110000000000",
+            "0000110000000000",
+            "0000111111111000",
+            "0000111111111000"
+        };
+        return compararPatron(lines, patron);
+    }
+
+    private static boolean esLetraI(List<String> lines) {
+        String[] patron = {
+            "0000111111111000",
+            "0000111111111000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000111111111000",
+            "0000111111111000"
+        };
+        return compararPatron(lines, patron);
+    }
+
+    private static boolean esLetraO(List<String> lines) {
+        String[] patron = {
+            "0000001111100000",
+            "0000011000110000",
+            "0000110000011000",
+            "0000110000011000",
+            "0000110000011000",
+            "0000110000011000",
+            "0000110000011000",
+            "0000110000011000",
+            "0000011000110000",
+            "0000001111100000"
+        };
+        return compararPatron(lines, patron);
+    }
+
+    private static boolean esLetraT(List<String> lines) {
+        String[] patron = {
+            "0001111111111100",
+            "0001111111111100",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000",
+            "0000000110000000"
+        };
+        return compararPatron(lines, patron);
+    }
+
+    private static boolean compararPatron(List<String> lines, String[] patron) {
+        if (lines.size() != patron.length) return false;
+        for (int i = 0; i < patron.length; i++) {
+            if (!lines.get(i).equals(patron[i])) return false;
+        }
+        return true;
+}
+}
