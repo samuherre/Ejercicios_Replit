@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+
+const std::string ALPHABET = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ. "; // Alfabeto con Ñ, espacio y punto
+const int SHIFT = 3; // Número de posiciones para el desplazamiento
+
+// Función para encriptar un mensaje
+std::string encrypt(const std::string& message) {
+    std::string encryptedMessage;
+    for (char c : message) {
+        size_t index = ALPHABET.find(c);
+        if (index != std::string::npos) {
+            // Calcula el índice de la letra encriptada y lo agrega al mensaje encriptado
+            size_t newIndex = (index + SHIFT) % ALPHABET.length();
+            encryptedMessage += ALPHABET[newIndex];
+        } else {
+            // Manejar caracteres no válidos (aunque no deberían estar presentes)
+            encryptedMessage += c;
+        }
+    }
+    return encryptedMessage;
+}
+
+// Función para desencriptar un mensaje
+std::string decrypt(const std::string& encryptedMessage) {
+    std::string decryptedMessage;
+    for (char c : encryptedMessage) {
+        size_t index = ALPHABET.find(c);
+        if (index != std::string::npos) {
+            // Calcula el índice de la letra desencriptada y lo agrega al mensaje desencriptado
+            size_t newIndex = (index + ALPHABET.length() - SHIFT) % ALPHABET.length();
+            decryptedMessage += ALPHABET[newIndex];
+        } else {
+            // Manejar caracteres no válidos (aunque no deberían estar presentes)
+            decryptedMessage += c;
+        }
+    }
+    return decryptedMessage;
+}
+
+int main() {
+    std::string message;
+
+    std::cout << "Ingrese el mensaje en mayúsculas (sin caracteres especiales, solo letras, Ñ, espacio, y punto): ";
+    std::getline(std::cin, message);
+
+    std::string encryptedMessage = encrypt(message);
+    std::cout << "Mensaje encriptado: " << encryptedMessage << std::endl;
+
+    std::string decryptedMessage = decrypt(encryptedMessage);
+    std::cout << "Mensaje desencriptado: " << decryptedMessage << std::endl;
+
+    return 0;
+}
