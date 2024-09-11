@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int MatrizCorrecta [3][10]  = {
+        {1, 3, 6, 10, 15, 21, 28, 36, 45, 55},
+        {2, 3, 5, 7, 11, 13, 17, 19, 23, 29},
+        {0, 1, 1, 2, 3, 5, 8, 13, 21, 34}
+    };
+    int MatrizCodificada[3][10];
+    cout<< "Ingrese la serie codificada: "<<"\n";
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 10; j++){
+            cout<<"Ingrese el valor de la posicion ["<<i<<"]["<<j<<"]: "<<"\n";
+            cin>>MatrizCodificada[i][j];
+        }
+    }
+    int NumIncorrecto=0;
+    int Codigo[3];
+    
+    for(int i=0; i<3; i++){
+        for(int j=0; j<10; j++){
+            if(MatrizCodificada[i][j]!=MatrizCorrecta[i][j]){
+                NumIncorrecto=MatrizCodificada[i][j];
+                Codigo[i]=NumIncorrecto;
+                break;
+            }
+        }
+    }
+    cout<<"El código es: "<<Codigo[0]<<"-"<<Codigo[1]<<"-"<<Codigo[2]<<"\n";
+    
+}
