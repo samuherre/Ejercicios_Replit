@@ -1,0 +1,121 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+
+using namespace std;
+
+const int capacity_A = 3; // Capacidad para despachar producto A por ciclo
+const int capacity_B = 3; // Capacidad para despachar producto B por ciclo
+const int cycles = 10;    // Número de ciclos de simulación
+
+// Función para generar un cliente con una preferencia de producto
+string generateClient() {
+    int r = rand() % 3;
+    if (r == 0) return "A";
+    if (r == 1) return "B";
+    return "Both";
+}
+
+// Simulación con una sola cola
+vector<int> simulateOneQueue() {
+    vector<string> queue;
+    vector<int> remainingClientsPerCycle;
+
+    for (int cycle = 0; cycle < cycles; ++cycle) {
+        // Genera entre 1 y 10 clientes para este ciclo
+        int new_clients = rand() % 10 + 1;
+        for (int i = 0; i < new_clients; ++i) {
+            queue.push_back(generateClient());
+        }
+
+        // Contar cuántos clientes piden A, B o ambos
+        int count_A = count(queue.begin(), queue.end(), "A") + count(queue.begin(), queue.end(), "Both");
+        int count_B = count(queue.begin(), queue.end(), "B") + count(queue.begin(), queue.end(), "Both");
+
+        // Atender hasta capacity_A clientes que pidan A
+        int served_A = min(capacity_A, count_A);
+        int served_B = min(capacity_B, count_B);
+
+        // Eliminar los clientes servidos
+        for (int i = 0; i < served_A; ++i) {
+            auto it = find(queue.begin(), queue.end(), "A");
+            if (it != queue.end()) {
+                queue.erase(it);
+            } else {
+                it = find(queue.begin(), queue.end(), "Both");
+                if (it != queue.end()) queue.erase(it);
+            }
+        }
+
+        for (int i = 0; i < served_B; ++i) {
+            auto it = find(queue.begin(), queue.end(), "B");
+            if (it != queue.end()) {
+                queue.erase(it);
+            } else {
+                it = find(queue.begin(), queue.end(), "Both");
+                if (it != queue.end()) queue.erase(it);
+            }
+        }
+
+        // Guardar la cantidad de clientes restantes
+        remainingClientsPerCycle.push_back(queue.size());
+    }
+
+    return remainingClientsPerCycle;
+}
+
+// Simulación con dos colas separadas
+vector<int> simulateTwoQueues() {
+    vector<string> queue_A;
+    vector<string> queue_B;
+    vector<int> remainingClientsPerCycle;
+
+    for (int cycle = 0; cycle < cycles; ++cycle) {
+        // Genera entre 1 y 10 clientes para este ciclo
+        int new_clients = rand() % 10 + 1;
+        for (int i = 0; i < new_clients; ++i) {
+            string client = generateClient();
+            if (client == "A") queue_A.push_back(client);
+            else if (client == "B") queue_B.push_back(client);
+            else { // Cliente que quiere ambos productos
+                queue_A.push_back(client);
+                queue_B.push_back(client);
+            }
+        }
+
+        // Atender hasta capacity_A clientes que pidan A
+        int served_A = min(capacity_A, (int)queue_A.size());
+        int served_B = min(capacity_B, (int)queue_B.size());
+
+        // Eliminar los clientes servidos de las colas
+        queue_A.erase(queue_A.begin(), queue_A.begin() + served_A);
+        queue_B.erase(queue_B.begin(), queue_B.begin() + served_B);
+
+        // Guardar la cantidad de clientes restantes en ambas colas
+        remainingClientsPerCycle.push_back(queue_A.size() + queue_B.size());
+    }
+
+    return remainingClientsPerCycle;
+}
+
+int main() {
+    srand(time(0));
+
+    // Simulación con una sola cola
+    vector<int> oneQueueResults = simulateOneQueue();
+    cout << "Resultados con una sola cola:" << endl;
+    for (int i = 0; i < cycles; ++i) {
+        cout << "Ciclo " << i + 1 << ": Clientes restantes: " << oneQueueResults[i] << endl;
+    }
+
+    // Simulación con dos colas separadas
+    vector<int> twoQueueResults = simulateTwoQueues();
+    cout << "\nResultados con dos colas:" << endl;
+    for (int i = 0; i < cycles; ++i) {
+        cout << "Ciclo " << i + 1 << ": Clientes restantes: " << twoQueueResults[i] << endl;
+    }
+
+    return 0;
+}
