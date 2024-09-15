@@ -1,0 +1,282 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+// Función para convertir una cadena a minúsculas
+string toLowerCase(string str) {
+    transform(str.begin(), str.end(), str.begin(), ::tolower);
+    return str;
+}
+
+// Clase para representar a un sospechoso
+class Sospechoso {
+public:
+    string nombre;
+    string cabello;
+    string genero;
+    bool usaAnteojos;
+    string barbaColor;
+
+    Sospechoso(string n, string c, string g, bool ua, string b)
+        : nombre(n), cabello(c), genero(g), usaAnteojos(ua), barbaColor(b) {}
+};
+
+// Nodo para la lista enlazada
+class Nodo {
+public:
+    Sospechoso* sospechoso;
+    Nodo* siguiente;
+
+    Nodo(Sospechoso* s) : sospechoso(s), siguiente(nullptr) {}
+};
+
+// Función para agregar un sospechoso a la lista
+void agregarNodo(Nodo*& cabeza, Sospechoso* s) {
+    Nodo* nuevoNodo = new Nodo(s);
+    nuevoNodo->siguiente = cabeza;
+    cabeza = nuevoNodo;
+}
+
+// Función para filtrar la lista de sospechosos
+void filtrarLista(Nodo*& cabeza, string pregunta, string respuesta) {
+    Nodo* actual = cabeza;
+    Nodo* previo = nullptr;
+
+    while (actual != nullptr) {
+        Sospechoso* s = actual->sospechoso;
+        string valor;
+
+        if (pregunta == "cabello") valor = s->cabello;
+        else if (pregunta == "barba") valor = s->barbaColor;
+        else if (pregunta == "anteojos") valor = s->usaAnteojos ? "Sí" : "No";
+        else if (pregunta == "genero") valor = s->genero;
+
+        if (toLowerCase(valor) != toLowerCase(respuesta)) {
+            if (previo == nullptr) {
+                cabeza = actual->siguiente;
+                delete actual;
+                actual = cabeza;
+            } else {
+                previo->siguiente = actual->siguiente;
+                delete actual;
+                actual = previo->siguiente;
+            }
+        } else {
+            previo = actual;
+            actual = actual->siguiente;
+        }
+    }
+}
+
+int contarSospechosos(Nodo* cabeza, string campo, string valor) {
+    Nodo* actual = cabeza;
+    int count = 0;
+    while (actual != nullptr) {
+        Sospechoso* s = actual->sospechoso;
+        string comparar;
+
+        if (campo == "cabello") comparar = s->cabello;
+        else if (campo == "barba") comparar = s->barbaColor;
+        else if (campo == "genero") comparar = s->genero;
+        else if (campo == "anteojos") comparar = s->usaAnteojos ? "Sí" : "No";
+
+        if (toLowerCase(comparar) == toLowerCase(valor)) count++;
+        actual = actual->siguiente;
+    }
+    return count;
+}
+
+int cantPreguntas = 0;
+
+// Función para buscar el sospechoso final
+void buscarSospechosoFinal(Nodo*& cabeza) {
+    if (cabeza == nullptr) {
+        cout << "Error: No quedan sospechosos en la lista con esa descripción." << endl;
+        return;
+    }
+
+    while (cabeza != nullptr && cabeza->siguiente != nullptr) {
+
+        cout << "En la lista se encuentra: " << cabeza->sospechoso->nombre << endl;
+        string respuesta;
+        cout << ++cantPreguntas << ". ¿Es este su sospechoso? (Sí, No)" << endl << "Respuesta: ";
+        cin >> respuesta;
+        cout << endl;
+        respuesta = toLowerCase(respuesta);
+
+        if (respuesta == "sí" || respuesta == "si") {
+            cout << "Agente doble encontrado: " << cabeza->sospechoso->nombre << "." << endl;
+            return;
+        } else {
+            Nodo* eliminado = cabeza;
+            cabeza = cabeza->siguiente;
+            delete eliminado;
+        }
+    }
+
+    if (cabeza != nullptr) {
+        cout << "Agente doble encontrado: " << cabeza->sospechoso->nombre << "." << endl;
+        delete cabeza;  //liberar la memoria del último nodo
+    }
+}
+
+int main() {
+    Nodo* cabeza = nullptr;
+
+    // Agregar los sospechosos a la lista
+    agregarNodo(cabeza, new Sospechoso("Ana", "Rubio", "Femenino", false, "No"));
+    agregarNodo(cabeza, new Sospechoso("Carlos", "Castaño", "Masculino", true, "Negro"));
+    agregarNodo(cabeza, new Sospechoso("Sofia", "Negro", "Femenino", false, "No"));
+    agregarNodo(cabeza, new Sospechoso("Diego", "Calvo", "Masculino", false, "Castaño"));
+    agregarNodo(cabeza, new Sospechoso("Laura", "Rubio", "Femenino", true, "No"));
+    agregarNodo(cabeza, new Sospechoso("Javier", "Pelirrojo", "Masculino", true, "Pelirrojo"));
+    agregarNodo(cabeza, new Sospechoso("María", "Castaño", "Femenino", false, "No"));
+    agregarNodo(cabeza, new Sospechoso("Pablo", "Negro", "Masculino", true, "Negro"));
+    agregarNodo(cabeza, new Sospechoso("Marta", "Rubio", "Femenino", true, "No"));
+    agregarNodo(cabeza, new Sospechoso("Alejandro", "Castaño", "Masculino", false, "Castaño"));
+    agregarNodo(cabeza, new Sospechoso("Paula", "Negro", "Femenino", false, "No"));
+    agregarNodo(cabeza, new Sospechoso("Daniel", "Rubio", "Masculino", true, "No"));
+    agregarNodo(cabeza, new Sospechoso("Elena", "Pelirrojo", "Femenino", false, "No"));
+    agregarNodo(cabeza, new Sospechoso("Luis", "Castaño", "Masculino", true, "Negro"));
+    agregarNodo(cabeza, new Sospechoso("Andrea", "Negro", "Femenino", true, "No"));
+    agregarNodo(cabeza, new Sospechoso("Miguel", "Rubio", "Masculino", false, "Rubio"));
+    agregarNodo(cabeza, new Sospechoso("Ana", "Castaño", "Femenino", false, "No"));
+    agregarNodo(cabeza, new Sospechoso("Carlos", "Negro", "Masculino", true, "No"));
+    agregarNodo(cabeza, new Sospechoso("Laura", "Rubio", "Femenino", false, "No"));
+    agregarNodo(cabeza, new Sospechoso("Diego", "Castaño", "Masculino", true, "No"));
+    agregarNodo(cabeza, new Sospechoso("Sofia", "Negro", "Femenino", true, "No"));
+    agregarNodo(cabeza, new Sospechoso("Javier", "Rubio", "Masculino", false, "Castaño"));
+    agregarNodo(cabeza, new Sospechoso("María", "Negro", "Femenino", false, "No"));
+    agregarNodo(cabeza, new Sospechoso("Pablo", "Rubio", "Masculino", true, "No"));
+    agregarNodo(cabeza, new Sospechoso("Marta", "Pelirrojo", "Femenino", false, "No"));
+
+    // Preguntas
+    string respuesta;
+    cout << "Bienvenido, se le realizarán algunas preguntas para descubrir al sospechoso" << endl;
+    cout << "OBSERVACIÓN: Debe de escribir su respuesta tal y como se encuentra en las opciones luego de cada pregunta\n" << endl;
+
+
+
+    // Pregunta 1: Color de cabello
+    cout << ++cantPreguntas << ". ¿Cuál es el color de cabello? (Rubio, Castaño, Negro, Pelirrojo, Calvo)" << endl << "Respuesta: ";
+    cin >> respuesta;
+    cout << endl;
+    respuesta = toLowerCase(respuesta);
+    while(respuesta != "rubio" && respuesta != "castaño" && respuesta != "negro" && respuesta != "pelirrojo" && respuesta != "calvo"){
+        cout << "Respuesta no válida, por favor ingrese una respuesta válida. Tenga en cuenta las mayúsculas\n¿Cuál es el color de cabello? (Rubio, Castaño, Negro, Pelirrojo, Calvo)" << endl;
+        cin >> respuesta;
+        cout << endl;
+        respuesta = toLowerCase(respuesta);
+    }
+    filtrarLista(cabeza, "cabello", respuesta);
+    if(cabeza->siguiente == nullptr || cabeza == nullptr){
+        buscarSospechosoFinal(cabeza);
+        return 0;
+    }
+
+    // Pregunta 2: Color de barba
+    cout << ++cantPreguntas <<". ¿Cuál es el color de la barba?/¿No tiene? (Rubio, Castaño, Negro, Pelirrojo, No)" << endl << "Respuesta: ";
+    cin >> respuesta;
+    cout << endl;
+    respuesta = toLowerCase(respuesta);
+    while(respuesta != "rubio" && respuesta != "castaño" && respuesta != "negro" && respuesta != "pelirrojo" && respuesta != "no"){
+        cout << "Respuesta no válida, por favor ingrese una respuesta válida. Tenga en cuenta las mayúsculas\n¿Cuál es el color de la barba?/¿No tiene? (Rubio, Castaño, Negro, Pelirrojo, No)" << endl << "Respuesta: ";
+        cin >> respuesta;
+        cout << endl;
+        respuesta = toLowerCase(respuesta);
+    }
+    filtrarLista(cabeza, "barba", respuesta);
+    if(cabeza->siguiente == nullptr || cabeza == nullptr){
+        buscarSospechosoFinal(cabeza);
+        return 0;
+    }
+
+    int hombres = contarSospechosos(cabeza, "genero", "Masculino");
+    int mujeres = contarSospechosos(cabeza, "genero", "Femenino");
+
+    if (hombres == 0) {
+        // No hay hombres, no preguntes por género
+        filtrarLista(cabeza, "genero", "femenino");
+        if(cabeza->siguiente == nullptr || cabeza == nullptr){
+            buscarSospechosoFinal(cabeza);
+            return 0;
+        }
+    } else if (mujeres == 0){
+        // No hay mujeres, no preguntes por género
+        filtrarLista(cabeza, "genero", "masculino");
+        if(cabeza->siguiente == nullptr || cabeza == nullptr){
+            buscarSospechosoFinal(cabeza);
+            return 0;
+        }
+    } else {
+        // Pregunta 3: Género
+        if (respuesta == "no") {
+            cout << ++cantPreguntas <<". ¿Cuál es el género? (Masculino, Femenino)" << endl << "Respuesta: ";
+            cin >> respuesta;
+            cout << endl;
+            respuesta = toLowerCase(respuesta);
+            while(respuesta != "masculino" && respuesta != "femenino"){
+                cout << "Respuesta no válida, por favor ingrese una respuesta válida. Tenga en cuenta las mayúsculas\n¿Cuál es el género? (Masculino, Femenino)" << endl << "Respuesta: ";
+                cin >> respuesta;
+                cout << endl;
+                respuesta = toLowerCase(respuesta);
+            }
+            filtrarLista(cabeza, "genero", respuesta);
+            if(cabeza->siguiente == nullptr || cabeza == nullptr){
+                buscarSospechosoFinal(cabeza);
+                return 0;
+            }
+        }
+    }
+
+    int anteojosSi = contarSospechosos(cabeza, "anteojos", "Sí");
+    int anteojosNo = contarSospechosos(cabeza, "anteojos", "No");
+
+    if (anteojosSi == 0){
+        // No hay sospechosos con anteojos, no preguntes por anteojos
+        filtrarLista(cabeza, "anteojos", "no");
+        if(cabeza->siguiente == nullptr || cabeza == nullptr){
+            buscarSospechosoFinal(cabeza);
+            return 0;
+        }
+    } else if (anteojosNo == 0){
+        // No hay sospechosos sin anteojos, no preguntes por anteojos
+        filtrarLista(cabeza, "anteojos", "sí");
+        if(cabeza->siguiente == nullptr || cabeza == nullptr){
+            buscarSospechosoFinal(cabeza);
+            return 0;
+        }
+    } else {
+        // Pregunta 4: ¿Usa anteojos?
+        cout << ++cantPreguntas <<". ¿Usa anteojos? (Sí, No)" << endl << "Respuesta: ";
+        cin >> respuesta;
+        cout << endl;
+        respuesta = toLowerCase(respuesta);
+        while (respuesta != "sí" && respuesta != "si" && respuesta != "no"){
+            cout << "Respuesta no válida, por favor ingrese una respuesta válida. Tenga en cuenta las mayúsculas y/o tildes\n¿Usa anteojos? (Sí, No)" << endl << "Respuesta: ";
+            cin >> respuesta;
+            cout << endl;
+            respuesta = toLowerCase(respuesta);
+        }
+        if (respuesta == "sí" || respuesta == "si") {
+            filtrarLista(cabeza, "anteojos", "Sí");
+        } else {
+            filtrarLista(cabeza, "anteojos", "No");
+        }
+    }
+
+
+    // Buscar el sospechoso final
+    buscarSospechosoFinal(cabeza);
+
+    // Liberar memoria
+    /*while (cabeza != nullptr) {
+        Nodo* temp = cabeza;
+        cabeza = cabeza->siguiente;
+        delete temp;
+    }*/
+
+    return 0;
+}
