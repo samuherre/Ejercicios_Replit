@@ -1,0 +1,60 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+ 
+using namespace std;
+ 
+// Función para generar el archivo .dot
+void generarArchivoDOT(vector<vector<int>>& matrizIncidencia, vector<int>& pesos) {
+    ofstream archivo("grafo.dot");
+    
+    if (!archivo) {
+        cerr << "Error al abrir el archivo." << endl;
+        return;
+    }
+ 
+    archivo << "digraph G {" << endl;
+ 
+    int numAristas = matrizIncidencia[0].size();
+    int numNodos = matrizIncidencia.size();
+    
+    for (int i = 0; i < numAristas; i++) {
+        int origen = -1, destino = -1;
+        
+        for (int j = 0; j < numNodos; j++) {
+            if (matrizIncidencia[j][i] == 1) {
+                origen = j + 1;
+            } else if (matrizIncidencia[j][i] == -1) {
+                destino = j + 1;
+            }
+        }
+        
+        if (origen != -1 && destino != -1) {
+            archivo << "  " << origen << " -> " << destino << " [label=\"" << pesos[i] << "\"];" << endl;
+        }
+    }
+ 
+    archivo << "}" << endl;
+    archivo.close();
+    cout << "Archivo .dot generado: grafo.dot" << endl;
+}
+ 
+int main() {
+    // Matriz de incidencia para un grafo con 5 nodos y 6 aristas
+    // 1: nodo origen, -1: nodo destino, 0: no incidencia
+    vector<vector<int>> matrizIncidencia = {
+        {1,  0,  0,  0,  1,  0},  // Nodo 1
+        {-1, 1,  0,  0,  0,  0},  // Nodo 2
+        {0,  -1, 1,  0,  0,  0},  // Nodo 3
+        {0,  0,  -1, 1,  0,  0},  // Nodo 4
+        {0,  0,  0,  -1, -1, 1}   // Nodo 5
+    };
+ 
+    // Pesos de las aristas
+    vector<int> pesos = {5, 10, 3, 8, 2, 7};
+ 
+    // Generar el archivo .dot
+    generarArchivoDOT(matrizIncidencia, pesos);
+ 
+    return 0;
+}
