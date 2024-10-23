@@ -1,0 +1,194 @@
+#include <iostream>
+#include <stack>
+#include <queue>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+// Función para verificar si los paréntesis, corchetes y llaves están balanceados
+bool areBracketsBalanced(string expr) {
+    stack<char> s;
+    char x;
+
+    for (int i = 0; i < expr.length(); i++) {
+        if (expr[i] == '(' || expr[i] == '[' || expr[i] == '{') {
+            s.push(expr[i]);
+            continue;
+        }
+
+        if (s.empty())
+            return false;
+
+        switch (expr[i]) {
+        case ')':
+            x = s.top();
+            s.pop();
+            if (x == '{' || x == '[')
+                return false;
+            break;
+
+        case '}':
+            x = s.top();
+            s.pop();
+            if (x == '(' || x == '[')
+                return false;
+            break;
+
+        case ']':
+            x = s.top();
+            s.pop();
+            if (x == '(' || x == '{')
+                return false;
+            break;
+        }
+    }
+
+    return (s.empty());
+}
+
+// Función para dar un ejemplo de una expresión balanceada
+string getBalancedExample(string expr) {
+    stack<char> s;
+    string balancedExpr = "";
+
+    for (char ch : expr) {
+        if (ch == '(' || ch == '[' || ch == '{') {
+            s.push(ch);
+            balancedExpr += ch;
+        } else if (ch == ')' || ch == ']' || ch == '}') {
+            if (!s.empty() && ((ch == ')' && s.top() == '(') || (ch == ']' && s.top() == '[') || (ch == '}' && s.top() == '{'))) {
+                s.pop();
+                balancedExpr += ch;
+            } else {
+                // Añadir el par correspondiente si no está balanceado
+                if (ch == ')') balancedExpr += '(';
+                if (ch == ']') balancedExpr += '[';
+                if (ch == '}') balancedExpr += '{';
+                balancedExpr += ch;
+            }
+        } else {
+            balancedExpr += ch;
+        }
+    }
+
+    // Añadir los paréntesis, corchetes o llaves faltantes
+    while (!s.empty()) {
+        if (s.top() == '(') balancedExpr += ')';
+        if (s.top() == '[') balancedExpr += ']';
+        if (s.top() == '{') balancedExpr += '}';
+        s.pop();
+    }
+
+    return balancedExpr;
+}
+
+int main() {
+    vector<string> expressions;
+    string expr;
+    int option;
+    bool running = true;
+
+    while (running) {
+        cout << "\n--- Menú Principal ---\n";
+        cout << "1. Ingresar expresión matemática\n";
+        cout << "2. Validar una expresión\n";
+        cout << "3. Modificar una expresión matemática\n";
+        cout << "4. Ver todas las expresiones\n";
+        cout << "5. Eliminar una expresión\n";
+        cout << "6. Salir\n";
+        cout << "Seleccione una opción: ";
+        cin >> option;
+
+        switch (option) {
+        case 1:
+            cout << "Ingrese la expresión matemática: ";
+            cin >> expr;
+            expressions.push_back(expr);
+            cout << "Expresión ingresada correctamente.\n";
+            break;
+        case 2:
+            if (!expressions.empty()) {
+                int index;
+                cout << "Seleccione la expresión a validar:\n";
+                for (int i = 0; i < expressions.size(); i++) {
+                    cout << i + 1 << ". " << expressions[i] << endl;
+                }
+                cout << "Ingrese el número de la expresión: ";
+                cin >> index;
+                if (index > 0 && index <= expressions.size()) {
+                    expr = expressions[index - 1];
+                    if (areBracketsBalanced(expr))
+                        cout << "La expresión está balanceada.\n";
+                    else {
+                        cout << "La expresión no está balanceada.\n";
+                        cout << "Ejemplo de una expresión balanceada: " << getBalancedExample(expr) << endl;
+                    }
+                } else {
+                    cout << "Índice no válido. Por favor, intente de nuevo.\n";
+                }
+            } else {
+                cout << "No hay expresiones para validar.\n";
+            }
+            break;
+        case 3:
+            if (!expressions.empty()) {
+                int index;
+                cout << "Seleccione la expresión a modificar:\n";
+                for (int i = 0; i < expressions.size(); i++) {
+                    cout << i + 1 << ". " << expressions[i] << endl;
+                }
+                cout << "Ingrese el número de la expresión: ";
+                cin >> index;
+                if (index > 0 && index <= expressions.size()) {
+                    cout << "Ingrese la nueva expresión matemática: ";
+                    cin >> expr;
+                    expressions[index - 1] = expr;
+                    cout << "Expresión modificada correctamente.\n";
+                } else {
+                    cout << "Índice no válido. Por favor, intente de nuevo.\n";
+                }
+            } else {
+                cout << "No hay expresiones para modificar.\n";
+            }
+            break;
+        case 4:
+            if (!expressions.empty()) {
+                cout << "Expresiones almacenadas:\n";
+                for (const auto& exp : expressions) {
+                    cout << exp << endl;
+                }
+            } else {
+                cout << "No hay expresiones almacenadas.\n";
+            }
+            break;
+        case 5:
+            if (!expressions.empty()) {
+                int index;
+                cout << "Seleccione la expresión a eliminar:\n";
+                for (int i = 0; i < expressions.size(); i++) {
+                    cout << i + 1 << ". " << expressions[i] << endl;
+                }
+                cout << "Ingrese el número de la expresión: ";
+                cin >> index;
+                if (index > 0 && index <= expressions.size()) {
+                    expressions.erase(expressions.begin() + index - 1);
+                    cout << "Expresión eliminada correctamente.\n";
+                } else {
+                    cout << "Índice no válido. Por favor, intente de nuevo.\n";
+                }
+            } else {
+                cout << "No hay expresiones para eliminar.\n";
+            }
+            break;
+        case 6:
+            running = false;
+            cout << "Saliendo del programa. ¡Hasta luego!\n";
+            break;
+        default:
+            cout << "Opción no válida. Por favor, intente de nuevo.\n";
+        }
+    }
+
+    return 0;
+}
