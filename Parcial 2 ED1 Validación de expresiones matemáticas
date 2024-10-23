@@ -1,0 +1,111 @@
+#include <iostream>
+#include <stack>
+#include <string>
+
+using namespace std;
+
+// Función para verificar si los símbolos están balanceados
+bool validarExpresion(const string &expresion) {
+    stack<char> pila;
+
+    for (char c : expresion) {
+        if (c == '(' || c == '[' || c == '{') {
+            pila.push(c);
+        } else if (c == ')' || c == ']' || c == '}') {
+            if (pila.empty()) return false;
+            char top = pila.top();
+            pila.pop();
+            if ((c == ')' && top != '(') || 
+                (c == ']' && top != '[') || 
+                (c == '}' && top != '{')) {
+                return false;
+            }
+        }
+    }
+
+    return pila.empty();
+}
+
+// Función para mostrar la expresión inicial y la modificada
+void mostrarExpresiones(const string &expresionInicial, const string &expresionModificada) {
+    cout << "\n--- Expresiones ---" << endl;
+    if (expresionInicial.empty()) {
+        cout << "No hay ninguna expresion ingresada." << endl;
+    } else {
+        cout << "Expresion inicial: " << expresionInicial << endl;
+        if (expresionModificada != expresionInicial) {
+            cout << "Expresion modificada: " << expresionModificada << endl;
+        } else {
+            cout << "La expresion no ha sido modificada." << endl;
+        }
+    }
+}
+
+int main() {
+    string expresionInicial, expresionModificada; // Variables para la expresión inicial y modificada
+    int opcion; // Opción del menú
+
+    do {
+        // Menú principal
+        cout << "\n--- Menu ---" << endl;
+        cout << "1. Ingresar expresion matematica" << endl;
+        cout << "2. Validar expresion" << endl;
+        cout << "3. Modificar expresion matematica" << endl;
+        cout << "4. Mostrar expresiones" << endl;
+        cout << "5. Salir" << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore(); // Limpiar buffer de entrada
+
+        switch (opcion) {
+            case 1: {
+                // Ingresar nueva expresión matemática
+                cout << "Ingrese la expresion matematica: ";
+                getline(cin, expresionInicial);
+                expresionModificada = expresionInicial; // Inicialmente, la expresión modificada es igual a la inicial
+                cout << "Expresion ingresada correctamente." << endl;
+                break;
+            }
+            case 2: {
+                // Validar la expresión matemática
+                if (expresionModificada.empty()) {
+                    cout << "No hay ninguna expresion ingresada. Ingrese una expresion primero." << endl;
+                } else {
+                    bool balanceada = validarExpresion(expresionModificada);
+                    if (balanceada) {
+                        cout << "La expresion esta balanceada." << endl;
+                    } else {
+                        cout << "La expresion NO esta balanceada." << endl;
+                    }
+                }
+                break;
+            }
+            case 3: {
+                // Modificar la expresión matemática
+                if (expresionInicial.empty()) {
+                    cout << "No hay ninguna expresion ingresada. Ingrese una expresion primero." << endl;
+                } else {
+                    cout << "Modifique la expresion matematica: ";
+                    getline(cin, expresionModificada);
+                    cout << "Expresion modificada correctamente." << endl;
+                }
+                break;
+            }
+            case 4: {
+                // Mostrar expresiones inicial y modificada
+                mostrarExpresiones(expresionInicial, expresionModificada);
+                break;
+            }
+            case 5: {
+                // Salir del programa
+                cout << "Saliendo del programa..." << endl;
+                break;
+            }
+            default: {
+                cout << "Opcion no valida. Intente de nuevo." << endl;
+            }
+        }
+    } while (opcion != 5);
+
+    return 0;
+}
