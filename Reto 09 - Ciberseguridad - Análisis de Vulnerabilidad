@@ -1,0 +1,100 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
+
+using namespace std;
+
+// Definición de la matriz de adyacencia de la red actual
+const int N = 10; // Número de departamentos
+string departments[N] = {"SOC", "R&D", "NOC", "CSIRT", "IT", "HR", "MKT", "FIN", "DEV", "OPS"};
+int adjMatrix[N][N] = {
+    {0, 1, 1, 0, 1, 1, 0, 0, 0, 0},
+    {1, 0, 1, 0, 1, 1, 0, 0, 0, 0},
+    {1, 1, 0, 1, 0, 0, 1, 0, 0, 0},
+    {0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+    {1, 1, 0, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 0, 0, 1, 0, 1, 0, 1, 0},
+    {0, 0, 1, 0, 1, 1, 0, 1, 0, 1},
+    {0, 0, 0, 0, 1, 0, 1, 0, 1, 0},
+    {0, 0, 0, 0, 1, 1, 0, 1, 0, 1},
+    {0, 0, 0, 0, 1, 0, 1, 0, 1, 0}
+};
+
+// Función para contar las conexiones de cada nodo
+vector<pair<string, int>> countConnections() {
+    vector<pair<string, int>> connections;
+    for (int i = 0; i < N; i++) {
+        int count = 0;
+        for (int j = 0; j < N; j++) {
+            if (adjMatrix[i][j] == 1) {
+                count++;
+            }
+        }
+        connections.push_back({departments[i], count});
+    }
+    // Ordenar los nodos de mayor a menor por el número de conexiones
+    sort(connections.begin(), connections.end(), [](pair<string, int> a, pair<string, int> b) {
+        return b.second < a.second;
+    });
+    return connections;
+}
+
+// Función para mostrar la topología actual
+void displayTopology() {
+    cout << "Topología actual de la red:\n";
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cout << adjMatrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+// Crear la nueva topología de red basada en una estrella con IT como nodo central
+void createNewTopology(int newAdjMatrix[N][N]) {
+    // Limpiar la nueva matriz de adyacencia
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            newAdjMatrix[i][j] = 0;
+        }
+    }
+    // Conectar todos los nodos al nodo central (IT)
+    int itIndex = 4; // Índice de IT
+    for (int i = 0; i < N; i++) {
+        if (i != itIndex) {
+            newAdjMatrix[itIndex][i] = 1;
+            newAdjMatrix[i][itIndex] = 1;
+        }
+    }
+}
+
+// Función para mostrar la nueva topología de red
+void displayNewTopology(int newAdjMatrix[N][N]) {
+    cout << "Nueva topología de la red (máx. 2 nodos intermedios):\n";
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cout << newAdjMatrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    // Mostrar la topología actual
+    displayTopology();
+
+    // Clasificar los nodos por número de conexiones
+    vector<pair<string, int>> connections = countConnections();
+    cout << "\nNodos ordenados de mayor a menor vulnerabilidad:\n";
+    for (auto &conn : connections) {
+        cout << conn.first << ": " << conn.second << " conexiones\n";
+    }
+
+    // Crear y mostrar la nueva topología
+    int newAdjMatrix[N][N];
+    createNewTopology(newAdjMatrix);
+    displayNewTopology(newAdjMatrix);
+
+    return 0;
+}
